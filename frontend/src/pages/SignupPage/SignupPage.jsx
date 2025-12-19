@@ -12,6 +12,30 @@ const SignupPage = () => {
     const [password, setPassword] = useState("");
     const [show, setShow] = useState(false);
 
+    const handleSignup = async () => {
+      try {
+        const res = await fetch("/api/auth/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          alert(data.error || "Signup failed");
+          return;
+        }
+
+        navigate("/login");
+      } catch (err) {
+        alert("Something went wrong");
+      }
+    };
+
     return (
       <div className = "signup-page">
         <div className = "left-pane">
@@ -52,12 +76,13 @@ const SignupPage = () => {
             <label>Password</label>
             <input
               className = "text-input"
+              type="password"
               placeholder="Enter your password"
               value={password}
               onChange = {(e) => setPassword(e.target.value)}
             />
           </div>
-          <button className = "signin-btn">Sign up</button>
+          <button className = "signin-btn" onClick={handleSignup}>Sign up</button>
         </div>
       </div>
     )

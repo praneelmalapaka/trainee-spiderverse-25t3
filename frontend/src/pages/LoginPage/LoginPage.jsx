@@ -11,6 +11,32 @@ const LoginPage = () => {
     const [password, setPassword] = useState("");
     const [show, setShow] = useState(false);
 
+    const handleLogin = async () => {
+      try {
+        const res = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: username,
+            password: password,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          alert(data.error || "Login failed");
+          return;
+        }
+
+        console.log("Logged in as:", data.email);
+        navigate("/");
+      } catch (err) {
+        alert("Something went wrong");
+      }
+    };
+
+
     return (
       <div className = "login-page">
         <div className = "left-pane" />
@@ -37,12 +63,13 @@ const LoginPage = () => {
             <label>Password</label>
             <input
               className = "text-input"
+              type="password"
               placeholder="Enter your password"
               value={password}
               onChange = {(e) => setPassword(e.target.value)}
             />
           </div>
-          <button className = "signin-btn">Login</button>
+          <button className = "signin-btn" onClick={handleLogin}>Login</button>
         </div>
         <div className = "right-pane">
           <h2 className = "right-title">Don't have an account yet?</h2>
