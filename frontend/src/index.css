@@ -66,3 +66,42 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: #C155BA;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  z-index: 1000;
+}
+
+.sidebar div {
+  padding: 20px;
+  width: 60px;
+}
+
+.sidebar-item img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 1;
+  filter: brightness(0) invert(1);
+
+}
+
+.sidebar-item img:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+.sidebar div:hover {
+  background-color: #ffffff47;
+}
+
